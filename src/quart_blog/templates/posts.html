@@ -1,0 +1,10 @@
+<main>
+    {% for post in posts %}
+        <article>
+        <h2><a href="{{ url_for('post_details', index=post.id ) }}">{{ post.title }}</a></h2>
+        <p>{{ post.content|safe }}</p>
+        </article>
+    {% else %}
+        <p>No posts available</p>
+    {% endfor %}
+</main>
