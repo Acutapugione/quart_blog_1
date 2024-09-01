@@ -18,8 +18,18 @@ async def create_post():
     return redirect(url_for("posts"))
 
 
-@app.get("/post_details/<int:index>", defaults={"index": 0})
-async def post_details(index: int): ...
+@app.get("/post_details/<int:index>")
+async def post_details(index: int):
+    with Config.SESSION.begin() as session:
+        post = session.query(Post).get(index)
+        if not post:
+            raise NotImplementedError("Post not found")
+        return await render_template(
+            "edit_post.html",
+            title=post.title,
+            content=post.content,
+            submit_btn="Edit",
+        )
 
 
 @app.get("/posts")

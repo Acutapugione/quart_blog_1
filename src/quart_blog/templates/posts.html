@@ -1,7 +1,8 @@
 <main>
     {% for post in posts %}
+        {{loop.index}}
         <article>
-        <h2><a href="{{ url_for('post_details', index=post.id ) }}">{{ post.title }}</a></h2>
+        <h2><a href="{{ url_for('post_details', index=loop.index ) }}">{{ post.title }}</a></h2>
         <p>{{ post.content|safe }}</p>
         </article>
     {% else %}
